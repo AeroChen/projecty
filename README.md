@@ -1,4 +1,4 @@
 projecty
 ========
 
-something personal
+Personal projects (eclipse cdt mostly) for practice purposes.
