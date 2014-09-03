@@ -27,7 +27,7 @@ string countAndSay(int n) {
     int count=0;
     char prev_char = 'a';
     string output_str = "";
-    for(int i = 0; i < last_str.length(); i++)
+    for(unsigned int i = 0; i < last_str.length(); i++)
     {
     	if(last_str[i]!=prev_char)
     	{
