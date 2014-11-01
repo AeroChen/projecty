@@ -88,9 +88,38 @@ ListNode *sortList(ListNode *head) {
     return mergeList(headref, halfref);
 }
 
+ListNode *insertionSortList(ListNode *head) {
+    if(head==NULL) return NULL;
+    ListNode dummy(0);
+    dummy.next = head;
+    ListNode *ptr1 = head;
+    ListNode *prev = &dummy;
+    while(ptr1)
+    {
+        ListNode *ptr2 = &dummy;
+        while(ptr2!=prev)
+        {
+            if(ptr1->val >= ptr2->next->val) {
+                ptr2 = ptr2->next;
+                continue;
+            }
+            else {
+            	prev->next = ptr1->next;
+            	ptr1->next = ptr2->next;
+            	ptr2->next = ptr1;
+                break;
+            }
+        }
+        if(ptr1==prev->next) prev = prev->next;
+        ptr1 = prev->next;
+    }
+    return dummy.next;
+}
+
 int main() {
-	int list[] = {4,2,3,1};
+	int list[] = {4,3,2,1};
 	ListNode* head = fillList(vector<int>(list, list + sizeof(list)/sizeof(int)));
-	printList(sortList(head));
+	//printList(sortList(head));
+	printList(insertionSortList(head));
 	return 0;
 }
