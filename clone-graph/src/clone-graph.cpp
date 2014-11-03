@@ -19,7 +19,7 @@ struct UndirectedGraphNode {
 	UndirectedGraphNode(int x) : label(x) {};
 };
 
-UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+UndirectedGraphNode *cloneGraphBFS(UndirectedGraphNode *node) {
 	if(node==NULL) return NULL;
 	queue<UndirectedGraphNode*> q;
 	unordered_map<UndirectedGraphNode*,UndirectedGraphNode*> clone_map;
@@ -32,7 +32,7 @@ UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
 	{
 		UndirectedGraphNode *curr = q.front();
 		q.pop();
-		for(int i=0;i<curr->neighbors.size();i++) // for each neighbor
+		for(unsigned int i=0;i<curr->neighbors.size();i++) // for each neighbor
 		{
 			UndirectedGraphNode *neighbor = curr->neighbors[i];
 			if(clone_map.find(neighbor)==clone_map.end()) // if neighbor  doesn't exist
@@ -50,6 +50,22 @@ UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
 	}
 
 	return nodecopy;
+}
+
+unordered_map<UndirectedGraphNode*,UndirectedGraphNode*> clone_map;
+
+UndirectedGraphNode *cloneGraphDFS(UndirectedGraphNode *node) {
+    if(node==NULL) return NULL;
+
+    if(clone_map.find(node)==clone_map.end()){
+        UndirectedGraphNode* node_copy = new UndirectedGraphNode(node->label);
+        clone_map[node] = node_copy;
+        for(unsigned int i=0; i<node->neighbors.size(); i++)
+        {
+            clone_map[node]->neighbors.push_back(cloneGraphDFS(node->neighbors[i]));
+        }
+    }
+    return clone_map[node];
 }
 
 int main() {
