@@ -134,9 +134,9 @@ unordered_map<long,long> Graph::getShortestPaths(long s) {
 				for(unsigned int i = 0; i<Q.size(); i++) {
 					if (Q[i].first == v) Q[i].second = alt;
 				}
-				make_heap(Q.begin(), Q.end(), compare_greater_pair());
 			}
 		}
+		make_heap(Q.begin(), Q.end(), compare_greater_pair());
 	}
 	return dist;
 }
